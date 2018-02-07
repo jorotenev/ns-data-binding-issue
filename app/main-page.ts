@@ -7,25 +7,32 @@ logic, and to set up your page’s data binding.
 import { EventData } from 'data/observable';
 import { Page } from 'ui/page';
 import { HelloWorldModel } from './main-view-model';
+import {ObservableArray} from "tns-core-modules/data/observable-array";
 
-// Event handler for Page "navigatingTo" event attached in main-page.xml
+
+
+let model: ViewModel;
+
 export function navigatingTo(args: EventData) {
-    /*
-    This gets a reference this page’s <Page> UI component. You can
-    view the API reference of the Page to see what’s available at
-    https://docs.nativescript.org/api-reference/classes/_ui_page_.page.html
-    */
-    let page = <Page>args.object;
-    
-    /*
-    A page’s bindingContext is an object that should be used to perform
-    data binding between XML markup and TypeScript code. Properties
-    on the bindingContext can be accessed using the {{ }} syntax in XML.
-    In this example, the {{ message }} and {{ onTap }} bindings are resolved
-    against the object returned by createViewModel().
 
-    You can learn more about data binding in NativeScript at
-    https://docs.nativescript.org/core-concepts/data-binding.
-    */
-    page.bindingContext = new HelloWorldModel();
+    let page = <Page>args.object;
+
+    model = new ViewModel();
+    page.bindingContext = model;
+    setTimeout(() => {
+        model.addItem()
+    }, 4000)
+}
+
+
+class ViewModel {
+    public items: ObservableArray<number>
+
+    constructor() {
+        this.items = new ObservableArray<number>([])
+    }
+
+    public addItem() {
+        this.items.push(Math.random())
+    }
 }
