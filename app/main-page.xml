@@ -14,7 +14,7 @@ https://docs.nativescript.org/ui/components.
     <StackLayout class="p-20">
 
         <Label text="{{ items.length }}" textWrap="true"/>
-        <Button text="should disapper" visibility="{{items.length === 0 ? 'visible' : 'collapsed' }}"></Button>
+        <Button text="should disappear" tap="tapped" visibility="{{items.length === 0 ? 'visible' : 'collapse' }}"></Button>
 
     </StackLayout>
 </Page>
